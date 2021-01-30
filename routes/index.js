@@ -1,7 +1,9 @@
 const
   express = require('express'),
-  pjson = require('./package.json'),
+  pjson = require('../package.json'),
   router = express.Router();
+
+router.use('/users', require('./users'));
 
 router.get('/ping', (req, res) => {
   res.send();

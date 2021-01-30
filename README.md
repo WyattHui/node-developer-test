@@ -14,10 +14,16 @@ Create a register and Login page in React that takes a username and a password a
     npm install
     ```
 
-* Build and run the Docker image
+* Build and start back-end
 
     ```
-    npm run build
+    npm run node-build
+    npm run node-start
+    ```
+
+* Build and start front-end
+
+    ```
     npm run start
     ```
 
@@ -25,10 +31,11 @@ Create a register and Login page in React that takes a username and a password a
 * For version update, please edit the version number in
   * package.json
 
-* Build, tag and push the Docker image
+* Build Docker image
 
     ```
-    npm run build-prod
+    npm run build
+    npm run node-build-prod
     ```
 
 ### Team contacts
