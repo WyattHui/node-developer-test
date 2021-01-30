@@ -1,0 +1,24 @@
+{
+  "name": "node-developer-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "docker build -t node-developer-test .",
+    "build-prod": "npm run build -- --build-arg NODE_ENV=production",
+    "start": "docker run -p 8080:8080 -it node-developer-test",
+    "dev": "npm run build & npm run start"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.0",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.14",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0"
+  }
+}
