@@ -4,8 +4,7 @@ import moment from 'moment';
 import {
   DEFAULT_MOMENT_FORMAT
 } from '../constants';
-import {setUser} from '../redux/actions';
-import {logout} from '../api/users';
+import logout from '../redux/actions/logout';
 
 class MyInfo extends React.Component {
   constructor(props) {
@@ -40,19 +39,18 @@ class MyInfo extends React.Component {
   }
 
   async logout() {
-    try {
-      await logout();
-    } catch (e) {
-      return console.error(e);
-    }
+    let props = this.props;
 
-    this.props.setUser({});
+    try {
+      await props.dispatch(logout());
+    } catch (e) {
+      // Do nothing
+    }
   }
 }
 
 export default connect(
   state => ({
     loginInfo: state.loginInfo
-  }),
-  {setUser}
+  })
 )(MyInfo);
