@@ -1,4 +1,4 @@
-FROM node:15.5.1-alpine
+FROM node:14.15-alpine3.10
 ARG NODE_ENV=development
 ENV NODE_ENV=$NODE_ENV
 WORKDIR /app

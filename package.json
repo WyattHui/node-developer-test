@@ -1,24 +1,58 @@
 {
   "name": "node-developer-test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "docker build -t node-developer-test .",
-    "build-prod": "npm run build -- --build-arg NODE_ENV=production",
-    "start": "docker run -p 8080:8080 -it node-developer-test",
-    "dev": "npm run build & npm run start"
-  },
+  "version": "0.1.0",
+  "proxy": "http://localhost:8080",
+  "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.0",
     "express-session": "^1.17.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.11.14",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
+    "react-scripts": "4.0.1",
+    "redux": "^4.0.5",
+    "web-vitals": "^0.2.4"
   },
   "devDependencies": {
-    "eslint": "^7.17.0"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.19.0",
+    "eslint-plugin-react": "^7.22.0"
+  },
+  "scripts": {
+    "node-build": "docker build -t node-developer-test .",
+    "node-build-prod": "npm run build -- --build-arg NODE_ENV=production",
+    "node-start": "docker run -p 8080:8080 -it node-developer-test",
+    "node-dev": "npm run node-build & npm run node-start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

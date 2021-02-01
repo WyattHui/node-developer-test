@@ -1,30 +1,42 @@
 const
   path = require('path'),
-  NODE_ENV = process.env.NODE_ENV;
-let envPath;
+  NODE_ENV = process.env.NODE_ENV,
+  express = require('express'),
+  app = express(),
+  passport = require('passport'),
+  session = require('express-session');
 
+let envPath;
 switch (NODE_ENV) {
   case 'production':
-    envPath = '.env.production';
+    envPath = '.env.production.local';
     break;
   default:
-    envPath = '.env';
+    envPath = '.env.development.local';
 }
 
 require('dotenv').config({
   path: path.resolve(process.cwd(), envPath)
 });
 
-const
-  express = require('express'),
-  app = express(),
-  fs = require('fs'),
-  index = fs.readFileSync('./index.html', 'utf8');
+require('./mongoose')();
+app.use(express.json());
 
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./libs/passport')(passport);
+
+app.use('/', require('./routes'));
+
+app.use(express.static(path.join(__dirname, 'build')));
 app.get('/', (req, res) => {
-  res.send(index);
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
-app.use('/v1', require('./routes'));
 
 const
   server = require('http').Server(app),
