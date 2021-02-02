@@ -1,6 +1,6 @@
 {
   "name": "node-developer-test",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
@@ -34,7 +34,7 @@
   },
   "scripts": {
     "node-build": "docker build -t node-developer-test .",
-    "node-build-prod": "npm run build -- --build-arg NODE_ENV=production",
+    "node-build-prod": "npm run node-build -- --build-arg NODE_ENV=production",
     "node-start": "docker run -p 8080:8080 -it node-developer-test",
     "node-dev": "npm run node-build & npm run node-start",
     "start": "react-scripts start",

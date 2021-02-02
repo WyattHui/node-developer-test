@@ -27,6 +27,12 @@ Create a register and Login page in React that takes a username and a password a
     npm run start
     ```
 
+### Testing
+* Run test
+
+    ```
+    npm run test
+    ```
 ### Deployment instructions
 * For version update, please edit the version number in
   * package.json
