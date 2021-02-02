@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setUser} from './redux/actions';
-import {me} from './api/users';
+import me from './redux/actions/me';
 import Login from './components/Login';
 import MyInfo from './components/MyInfo';
 import './App.css';
@@ -12,13 +11,13 @@ class App extends React.Component {
   }
 
   async fetchLoginInfo() {
-    let user;
+    let props = this.props;
+
     try {
-      user = await me();
+      await props.dispatch(me());
     } catch (e) {
-      return console.error(e);
+      // Do nothing
     }
-    this.props.setUser(user);
   }
 
   render() {
@@ -34,7 +33,4 @@ class App extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  {setUser}
-)(App);
+export default connect()(App);

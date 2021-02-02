@@ -8,12 +8,17 @@
     "plugin:react/recommended"
   ],
   "globals": {
+    "afterEach": "readonly",
+    "beforeEach": "readonly",
     "console": "readonly",
+    "describe": "readonly",
     "document": "readonly",
+    "expect": "readonly",
     "fetch": "readonly",
     "module": "readonly",
     "process": "readonly",
-    "require": "readonly"
+    "require": "readonly",
+    "test": "readonly"
   },
   "parser": "babel-eslint",
   "parserOptions": {

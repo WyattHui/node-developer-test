@@ -1,15 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setUser} from '../redux/actions';
-import {login} from '../api/users';
+import login from '../redux/actions/login';
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: '',
-      isLoggingIn: false
+      password: ''
     };
     this.updateEmail = this.updateCredential.bind(this, 'email');
     this.updatePassword = this.updateCredential.bind(this, 'password');
@@ -21,29 +19,41 @@ class Login extends React.Component {
     let props = this.props,
       loginInfo = props.loginInfo || {},
       user = loginInfo.user || {},
+      error = loginInfo.error || {},
       state = this.state;
 
     return user.email ? null : <div>
       <div className="text-danger">
-        {state.errorMsg || ''}
+        {error.message || ''}
       </div>
       <div className="text-right">
         <div>
-          Email:&nbsp;
+          <label htmlFor="email">
+            Email:
+          </label>
+          &nbsp;
           <input
+            id="email"
+            type="text"
             onChange={this.updateEmail}
             value={state.email}/>
         </div>
         <div>
-          Password:&nbsp;
+          <label htmlFor="password">
+            Password:
+          </label>
+          &nbsp;
           <input
+            id="password"
             type="password"
+            data-testid="password"
             onChange={this.updatePassword}
             onKeyPress={this.onKeyPressPassword}
             value={state.password}/>
         </div>
       </div>
-      <button onClick={this.login}>
+      <button id="login"
+        onClick={this.login}>
         Login
       </button>
     </div>;
@@ -62,42 +72,32 @@ class Login extends React.Component {
   }
 
   async login() {
-    let {isLoggingIn, email, password} = this.state,
-      user;
+    let props = this.props,
+      loginInfo = props.loginInfo || {},
+      isLoggingIn = loginInfo.isLoggingIn,
+      {email, password} = this.state;
 
     if (isLoggingIn) {
       return;
     }
 
-    this.setState({
-      errorMsg: null,
-      isLoggingIn: true
-    });
-
     try {
-      user = await login({
+      await props.dispatch(login({
         email,
         password
+      }));
+      this.setState({
+        email: '',
+        password: ''
       });
     } catch (e) {
-      return this.setState({
-        errorMsg: e.message,
-        isLoggingIn: false
-      });
+      // Do nothing
     }
-
-    this.setState({
-      email: '',
-      password: '',
-      isLoggingIn: false
-    });
-    this.props.setUser(user);
   }
 }
 
 export default connect(
   state => ({
     loginInfo: state.loginInfo
-  }),
-  {setUser}
+  })
 )(Login);
