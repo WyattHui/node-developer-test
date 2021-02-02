@@ -33,8 +33,12 @@
     "redux-mock-store": "^1.5.4"
   },
   "scripts": {
+    "docker-login-aws": "aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin 267585271655.dkr.ecr.eu-west-2.amazonaws.com",
     "node-build": "docker build -t node-developer-test .",
     "node-build-prod": "npm run node-build -- --build-arg NODE_ENV=production",
+    "tag": "docker tag node-developer-test:latest 267585271655.dkr.ecr.eu-west-2.amazonaws.com/node-developer-test:latest",
+    "push": "docker push 267585271655.dkr.ecr.eu-west-2.amazonaws.com/node-developer-test:latest",
+    "aws-ecs-update-service": "aws ecs update-service --cluster arn:aws:ecs:eu-west-2:267585271655:cluster/node-developer-test-cluster --service arn:aws:ecs:eu-west-2:267585271655:service/node-developer-test-cluster/node-developer-test-service --force-new-deployment --region eu-west-2",
     "node-start": "docker run -p 8080:8080 -it node-developer-test",
     "node-dev": "npm run node-build & npm run node-start",
     "start": "react-scripts start",
